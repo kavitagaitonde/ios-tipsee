@@ -38,9 +38,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
-                                    <action selector="calculateTip:" destination="pez-ct-I0m" eventType="editingChanged" id="Ms4-j5-psc"/>
+                                    <action selector="handleBillInput:" destination="pez-ct-I0m" eventType="editingDidEnd" id="NGo-5N-dof"/>
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AS8-ee-ZCT">
@@ -222,7 +222,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rcL-Cg-BKS" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="XC0-CC-J3H">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="XC0-CC-J3H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

@@ -32,7 +32,19 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup after loading the view, typically from a nib.
-        calculateTip(NSNull.self)
+        let defaults = UserDefaults.standard
+        let lastBillAmount = defaults.double(forKey: "lastBillAmount")
+        let lastBillDate = defaults.object(forKey: "lastBillDate") as? Date
+        let timeInterval: Double = (lastBillDate != nil) ? NSDate.init().timeIntervalSince(lastBillDate! as Date) : Double(0);
+        
+        if(lastBillAmount > 0 && timeInterval < 120 ) {
+            billTextField.text = "\(lastBillAmount)"
+        } else {
+            billTextField.text = "";
+        }
+        calculateTip()
+        billTextField.becomeFirstResponder()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,10 +54,19 @@ class ViewController: UIViewController {
 
     
     @IBAction func handleTipSelection(_ sender: AnyObject) {
-        calculateTip(sender)
+        calculateTip()
     }
 
-    @IBAction func calculateTip(_ sender: AnyObject) {
+    @IBAction func handleBillInput(_ sender: AnyObject) {
+        let defaults = UserDefaults.standard
+        let bill = Double(sender.text!) ?? 0
+        defaults.set(bill, forKey: "lastBillAmount")
+        defaults.set(Date(), forKey: "lastBillDate")
+        defaults.synchronize()
+        calculateTip()
+    }
+    
+    func calculateTip() {
         let tips = [0.15, 0.18, 0.2]
         let currencies = ["$", "£", "€"]
         let defaults = UserDefaults.standard
@@ -67,7 +88,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func handleSplitStepperValueChanged(_ sender: AnyObject) {
-        calculateTip(sender)
+        calculateTip()
     }
     
     @IBAction func handleTap(_ sender: AnyObject) {
